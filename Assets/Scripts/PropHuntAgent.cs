@@ -75,12 +75,8 @@ public class PropHuntAgent : Agent
             else if (hit.collider.CompareTag("Prop"))
             {
                 Debug.Log("fake prop");
-                AddReward(-0.1f);
+                AddReward(-0.01f);
             }
-        }
-        else
-        {
-            AddReward(-0.01f);
         }
     }
 
@@ -90,7 +86,7 @@ public class PropHuntAgent : Agent
         {
             float dist = Vector3.Distance(transform.localPosition, _envManager.SectionMiddleCoordinates[i]);
 
-            if (dist < _envManager.SectionOffset && !_visitedSections.Contains(i))
+            if (dist < _envManager.SectionOffset - 10 && !_visitedSections.Contains(i))
             {
                 _visitedSections.Add(i);
                 Debug.Log($"Nieuwe sectie ontdekt: {i}");
