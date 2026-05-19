@@ -21,6 +21,16 @@ public class PropHuntAgent : Agent
     public override void CollectObservations(VectorSensor sensor)
     {
         sensor.AddObservation(_visitedSections.Count);
+
+        for (int i = 0; i < _envManager.SectionMiddleCoordinates.Length; i++)
+        {
+            sensor.AddObservation(_visitedSections.Contains(i) ? 1.0f : 0.0f);
+
+            Vector3 relativePosition = transform.InverseTransformPoint(_envManager.SectionMiddleCoordinates[i]);
+
+            sensor.AddObservation(relativePosition.x);
+            sensor.AddObservation(relativePosition.z);
+        }
     }
 
     public override void OnEpisodeBegin()
@@ -86,7 +96,7 @@ public class PropHuntAgent : Agent
         {
             float dist = Vector3.Distance(transform.localPosition, _envManager.SectionMiddleCoordinates[i]);
 
-            if (dist < _envManager.SectionOffset - 10 && !_visitedSections.Contains(i))
+            if (dist < _envManager.SectionOffset - 2 && !_visitedSections.Contains(i))
             {
                 _visitedSections.Add(i);
                 Debug.Log($"Nieuwe sectie ontdekt: {i}");

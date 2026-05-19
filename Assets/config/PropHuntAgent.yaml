@@ -1,5 +1,5 @@
 behaviors:
-  PropHuntAgent_05:
+  PropHuntAgent_06:
     trainer_type: ppo
     hyperparameters:
       batch_size: 128
