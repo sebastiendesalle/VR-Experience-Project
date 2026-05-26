@@ -1,0 +1,56 @@
+{
+    "PropHuntAgent_06": {
+        "checkpoints": [
+            {
+                "steps": 20694,
+                "file_path": "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-20694.onnx",
+                "reward": -10.838499983151754,
+                "creation_time": 1779286046.9963734,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-20694.pt"
+                ]
+            },
+            {
+                "steps": 499951,
+                "file_path": "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-499951.onnx",
+                "reward": -1.241819977760315,
+                "creation_time": 1779287142.9861515,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-499951.pt"
+                ]
+            },
+            {
+                "steps": 999987,
+                "file_path": "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-999987.onnx",
+                "reward": -2.9639586806297302,
+                "creation_time": 1779288200.0504966,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-999987.pt"
+                ]
+            },
+            {
+                "steps": 1000051,
+                "file_path": "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-1000051.onnx",
+                "reward": -2.9639586806297302,
+                "creation_time": 1779288200.1465669,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-1000051.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1000051,
+            "file_path": "results\\PropHuntAgent_06\\PropHuntAgent_06.onnx",
+            "reward": -2.9639586806297302,
+            "creation_time": 1779288200.1465669,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_06\\PropHuntAgent_06\\PropHuntAgent_06-1000051.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

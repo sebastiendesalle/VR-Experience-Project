@@ -1,0 +1,65 @@
+{
+    "PropHuntAgent_08": {
+        "checkpoints": [
+            {
+                "steps": 499965,
+                "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-499965.onnx",
+                "reward": -0.30448653166358536,
+                "creation_time": 1779311083.3591044,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-499965.pt"
+                ]
+            },
+            {
+                "steps": 806075,
+                "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-806075.onnx",
+                "reward": -0.6005757640708577,
+                "creation_time": 1779311517.5292768,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-806075.pt"
+                ]
+            },
+            {
+                "steps": 862586,
+                "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-862586.onnx",
+                "reward": -0.510666182407966,
+                "creation_time": 1779312454.7152143,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-862586.pt"
+                ]
+            },
+            {
+                "steps": 999810,
+                "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-999810.onnx",
+                "reward": -0.3012832219784076,
+                "creation_time": 1779312679.1401484,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-999810.pt"
+                ]
+            },
+            {
+                "steps": 1421458,
+                "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-1421458.onnx",
+                "reward": null,
+                "creation_time": 1779313195.430848,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-1421458.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 1421458,
+            "file_path": "results\\PropHuntAgent_08\\PropHuntAgent_08.onnx",
+            "reward": null,
+            "creation_time": 1779313195.430848,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_08\\PropHuntAgent_08\\PropHuntAgent_08-1421458.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

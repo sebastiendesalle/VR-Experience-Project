@@ -1,0 +1,29 @@
+{
+    "PropHuntAgent_09": {
+        "checkpoints": [
+            {
+                "steps": 466628,
+                "file_path": "results\\PropHuntAgent_09\\PropHuntAgent_09\\PropHuntAgent_09-466628.onnx",
+                "reward": null,
+                "creation_time": 1779315804.4053738,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_09\\PropHuntAgent_09\\PropHuntAgent_09-466628.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 466628,
+            "file_path": "results\\PropHuntAgent_09\\PropHuntAgent_09.onnx",
+            "reward": null,
+            "creation_time": 1779315804.4053738,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_09\\PropHuntAgent_09\\PropHuntAgent_09-466628.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}

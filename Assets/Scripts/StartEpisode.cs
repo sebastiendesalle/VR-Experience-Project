@@ -9,6 +9,13 @@ public class StartEpisode : MonoBehaviour
 
     public float playerRadius = 0.4f;
     public int maxSpawnAttempts = 30;
+
+    public float arenaBoundX = 20f;
+    public float arenaBoundZ = 20f;
+
+    [Header("Curriculum Difficulty")]
+    public float spawnRadius = 5f;
+
     public void Begin()
     {
         this.SetPositions();
@@ -21,33 +28,48 @@ public class StartEpisode : MonoBehaviour
 
     private void SetPositions()
     {
-        // Agent
-        Agent.transform.localPosition = new Vector3(0, 1, 0);
-        Agent.transform.localRotation = Quaternion.identity;
-
-        //Speler
+        // 1. Choose a random section for the agent
         int sectionIndex = this.chooseSection();
         Vector3 chosenSection = SectionMiddleCoordinates[sectionIndex];
 
-        Vector3 safePosition = GetValidSpawnPosition(chosenSection);
-        this.Player.transform.localPosition = safePosition;
+        // 2. Spawn the Agent safely near the center of that section
+        Agent.transform.localPosition = GetValidSpawnPosition(chosenSection, 2f);
+
+        // Agent spins to a random direction (Training wheels are OFF)
+        Agent.transform.localRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+
+        // 3. Spawn the Player relative to the Agent using your Inspector slider
+        Player.transform.localPosition = GetValidSpawnPosition(Agent.transform.localPosition, spawnRadius);
     }
 
-    private Vector3 GetValidSpawnPosition(Vector3 sectionMiddle)
+    private Vector3 GetValidSpawnPosition(Vector3 centerPoint, float spawnRadius)
     {
         for (int i = 0; i < maxSpawnAttempts; i++)
         {
-            float playerX = Random.Range(sectionMiddle.x - SectionOffset, sectionMiddle.x + SectionOffset);
-            float playerZ = Random.Range(sectionMiddle.z - SectionOffset, sectionMiddle.z + SectionOffset);
+            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
 
-            Vector3 potentialPosition = new Vector3(playerX, 1, playerZ);
+            // 1. Pick a random local coordinate
+            float randomX = centerPoint.x + randomCircle.x;
+            float randomZ = centerPoint.z + randomCircle.y;
 
-            if (!Physics.CheckSphere(potentialPosition, playerRadius))
+            // 2. CLAMP the coordinates so they cannot escape the physical walls
+            float buffer = 2f;
+            randomX = Mathf.Clamp(randomX, -arenaBoundX + buffer, arenaBoundX - buffer);
+            randomZ = Mathf.Clamp(randomZ, -arenaBoundZ + buffer, arenaBoundZ - buffer);
+
+            Vector3 potentialLocalPosition = new Vector3(randomX, 1, randomZ);
+
+            // 3. CONVERT local to WORLD coordinate for physics checks
+            Vector3 worldPosition = transform.TransformPoint(potentialLocalPosition);
+
+            // 4. CHECK physics
+            if (!Physics.CheckSphere(worldPosition, playerRadius))
             {
-                return potentialPosition;
+                return potentialLocalPosition;
             }
         }
-        Debug.LogWarning("Kamer zat te vol! Speler spawnt in het midden van de sectie.");
-        return new Vector3(sectionMiddle.x, 1, sectionMiddle.z);
+
+        Debug.LogWarning("Kamer zat te vol! Spawnt in het exacte midden.");
+        return new Vector3(centerPoint.x, 1, centerPoint.z);
     }
 }
