@@ -13,49 +13,53 @@ public class PlayerPropTransformer : MonoBehaviour
     // Currently spawned prop
     private GameObject spawnedProp;
 
-    void Update()
+    void LateUpdate()
     {
-        // Prop follows player every frame
         if (spawnedProp != null)
-        {
-            spawnedProp.transform.position =
-                playerTransform.position + propSpawnOffset;
-        }
+            spawnedProp.transform.position = playerTransform.position + propSpawnOffset;
     }
 
     // Called by PropSelectionInteractable when player confirms choice
     public void TransformIntoProp(PropData propData)
     {
-        if (propData == null || propData.propPrefab == null)
-        {
-            Debug.Log("PropData or prefab is missing");
-            return;
-        }
+        if (propData == null || propData.propPrefab == null) return;
 
-        // If already transformed into something, remove it first
         if (spawnedProp != null)
         {
             Destroy(spawnedProp);
             spawnedProp = null;
         }
 
-        // Hide the player sphere
         if (playerVisual != null)
             playerVisual.SetActive(false);
 
-        // Spawn the prop at player position
         Vector3 spawnPosition = playerTransform.position + propSpawnOffset;
-        spawnedProp = Instantiate(propData.propPrefab, spawnPosition,
-                                  playerTransform.rotation);
+        spawnedProp = Instantiate(propData.propPrefab, spawnPosition, Quaternion.identity); // <-- Quaternion.identity, not playerTransform.rotation
+
+        // Strip all physics from the prop — it's visual only
+        StripPhysicsFromProp(spawnedProp);
 
         spawnedProp.name = "ActiveProp_" + propData.propName;
-
-        // Save everything to GameManager
         GameManager.Instance.chosenProp = propData;
         GameManager.Instance.isTransformed = true;
         GameManager.Instance.activePropObject = spawnedProp;
 
         Debug.Log("Transformed into: " + propData.propName);
+    }
+
+    private void StripPhysicsFromProp(GameObject prop)
+    {
+        // Disable Rigidbody — this is what causes the physics conflict
+        Rigidbody rb = prop.GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+            rb.useGravity = false;
+        }
+
+        // Disable all colliders — the player's own collider handles wall collision
+        foreach (Collider col in prop.GetComponentsInChildren<Collider>())
+            col.enabled = false;
     }
 
     // Call this if player wants to pick a different prop
