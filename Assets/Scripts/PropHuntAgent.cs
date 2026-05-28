@@ -8,19 +8,23 @@ public class PropHuntAgent : Agent
 {
     public float moveSpeed = 5f;
     public float turnSpeed = 150f;
-    public float attackRange = 2f;
     private Vector3 _lastPosition;
     private int _stuckCounter = 0;
 
     public StartEpisode _envManager;
     private HashSet<int> _visitedSections = new HashSet<int>();
-
-    // NEW: Variable to track distance for the Hot and Cold game
-    private float _previousDistance;
+    private Rigidbody _rb;
 
     public override void Initialize()
     {
-        // _envManager is assigned in the Inspector
+        // Haal de Rigidbody op voor physics-gebaseerde beweging
+        _rb = GetComponent<Rigidbody>();
+
+        // Zorg ervoor dat de physics engine de rotatie van de agent niet verstoort
+        if (_rb != null)
+        {
+            _rb.freezeRotation = true;
+        }
     }
 
     public override void CollectObservations(VectorSensor sensor)
@@ -39,46 +43,44 @@ public class PropHuntAgent : Agent
     public override void OnEpisodeBegin()
     {
         _visitedSections.Clear();
-
-        // 1. Spawns the Agent and the Player
         _envManager.Begin();
-
         _lastPosition = transform.localPosition;
         _stuckCounter = 0;
 
-        // 2. NEW: Calculate the starting distance for the Hot and Cold game
-        _previousDistance = Vector3.Distance(transform.localPosition, _envManager.Player.transform.localPosition);
+        // Reset de snelheid aan het begin van elke nieuwe poging
+        if (_rb != null)
+        {
+            _rb.linearVelocity = Vector3.zero;
+            _rb.angularVelocity = Vector3.zero;
+        }
     }
 
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
-        // Time penalty
+        // 1. Time penalty (prikkel om zo snel mogelijk te zijn)
         AddReward(-0.001f);
 
-        // Movement
+        // 2. Beweging via Physics (Rigidbody) in plaats van transform.Translate
         float turnInput = actionBuffers.ContinuousActions[0];
-        float moveInput = actionBuffers.ContinuousActions[1];
+        float moveInput = Mathf.Clamp(actionBuffers.ContinuousActions[1], 0f, 1f);
 
+        // Rotatie kan via transform blijven gaan (werkt perfect i.c.m. freezeRotation)
         transform.Rotate(Vector3.up * turnInput * turnSpeed * Time.deltaTime);
-        transform.Translate(Vector3.forward * moveInput * moveSpeed * Time.deltaTime);
 
-        // NEW: THE HOT AND COLD GAME
-        float currentDistance = Vector3.Distance(transform.localPosition, _envManager.Player.transform.localPosition);
-        float distanceDelta = _previousDistance - currentDistance;
-
-        // Reward for moving closer, penalty for moving away
-        AddReward(distanceDelta * 1.0f);
-
-        // Save the distance for the next frame
-        _previousDistance = currentDistance;
+        // Pas de snelheid aan met behoud van de verticale snelheid (voor zwaartekracht)
+        if (_rb != null)
+        {
+            Vector3 moveVelocity = transform.forward * moveInput * moveSpeed;
+            moveVelocity.y = _rb.linearVelocity.y; // Zorgt ervoor dat hij niet gaat zweven of door de grond zakt
+            _rb.linearVelocity = moveVelocity;
+        }
 
         CheckIfFallenOver();
         CheckForNewSection();
-
-        // Intentionally commented out to allow spinning without dying!
-        // CheckIfStuck(); 
-
         CheckForTargetGrab();
+
+        // 3. Stuck Check (Aangepast: Geen EndEpisode meer!)
+        CheckIfStuck(moveInput);
     }
 
     private void CheckIfFallenOver()
@@ -97,7 +99,7 @@ public class PropHuntAgent : Agent
         {
             if (hitCollider.CompareTag("Player"))
             {
-                AddReward(5.0f);
+                AddReward(5.0f); // Grote hoofdwaarde voor het daadwerkelijk behalen van het doel
                 EndEpisode();
                 return;
             }
@@ -112,21 +114,24 @@ public class PropHuntAgent : Agent
             if (dist < _envManager.SectionOffset - 2 && !_visitedSections.Contains(i))
             {
                 _visitedSections.Add(i);
-                AddReward(0.3f);
+                AddReward(0.3f); // Beloning voor exploratie van nieuwe kamers
             }
         }
     }
 
-    private void CheckIfStuck()
+    private void CheckIfStuck(float moveInput)
     {
         float distanceMoved = Vector3.Distance(transform.localPosition, _lastPosition);
-        if (distanceMoved < 0.01f)
+
+        // Hij geeft gas maar komt niet vooruit (staat tegen een muur of object)
+        if (moveInput > 0.1f && distanceMoved < 0.01f)
         {
             _stuckCounter++;
             if (_stuckCounter > 50)
             {
-                AddReward(-1.0f);
-                EndEpisode();
+                // Geef een milde waarschuwingstraf in plaats van de episode direct te stoppen
+                AddReward(-0.05f);
+                _stuckCounter = 0; // Reset om constante opeenvolgende straffen te voorkomen
             }
         }
         else
@@ -134,14 +139,6 @@ public class PropHuntAgent : Agent
             _stuckCounter = 0;
         }
         _lastPosition = transform.localPosition;
-    }
-    private void OnCollisionStay(Collision collision)
-    {
-        // Punishes the AI if it grinds against a wall
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            AddReward(-0.001f);
-        }
     }
 
     public override void Heuristic(in ActionBuffers actionsOut)

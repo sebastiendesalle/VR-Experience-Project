@@ -1,0 +1,32 @@
+{
+    "spawn_radius": {
+        "lesson_num": 1
+    },
+    "PropHuntAgent_10": {
+        "checkpoints": [
+            {
+                "steps": 251293,
+                "file_path": "results\\PropHuntAgent_10\\PropHuntAgent_10\\PropHuntAgent_10-251293.onnx",
+                "reward": -0.7387073523387676,
+                "creation_time": 1779806934.5000455,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_10\\PropHuntAgent_10\\PropHuntAgent_10-251293.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 251293,
+            "file_path": "results\\PropHuntAgent_10\\PropHuntAgent_10.onnx",
+            "reward": -0.7387073523387676,
+            "creation_time": 1779806934.5000455,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_10\\PropHuntAgent_10\\PropHuntAgent_10-251293.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

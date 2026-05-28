@@ -1,3 +1,4 @@
+using Unity.MLAgents;
 using UnityEngine;
 
 public class StartEpisode : MonoBehaviour
@@ -13,8 +14,20 @@ public class StartEpisode : MonoBehaviour
     public float arenaBoundX = 20f;
     public float arenaBoundZ = 20f;
 
+    [Header("Map Settings")]
+    // De maximale afstand vanaf het midden van een sectie tot aan de muren van die sectie.
+    // Zet deze op een waarde waardoor ze in de kamer blijven en niet in/voorbij de muur spawnen.
+    public float maxRoomRadius = 4f;
+
     [Header("Curriculum Difficulty")]
-    public float spawnRadius = 5f;
+    public int curriculumLevel
+    {
+        get
+        {
+            // Haalt het huidige level (0, 1, 2, 3 of 4) op uit de YAML
+            return (int)Academy.Instance.EnvironmentParameters.GetWithDefault("curriculum_level", 0f);
+        }
+    }
 
     public void Begin()
     {
@@ -28,41 +41,81 @@ public class StartEpisode : MonoBehaviour
 
     private void SetPositions()
     {
-        // 1. Choose a random section for the agent
-        int sectionIndex = this.chooseSection();
-        Vector3 chosenSection = SectionMiddleCoordinates[sectionIndex];
+        int agentSection = chooseSection();
+        int playerSection = chooseSection();
 
-        // 2. Spawn the Agent safely near the center of that section
-        Agent.transform.localPosition = GetValidSpawnPosition(chosenSection, 2f);
+        // Zorg ervoor dat de speler in level 4 NIET in dezelfde kamer spawnt als de agent
+        while (playerSection == agentSection)
+        {
+            playerSection = chooseSection();
+        }
 
-        // Agent spins to a random direction (Training wheels are OFF)
-        Agent.transform.localRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+        Vector3 agentKamerMidden = SectionMiddleCoordinates[agentSection];
+        Vector3 playerKamerMidden = SectionMiddleCoordinates[playerSection];
 
-        // 3. Spawn the Player relative to the Agent using your Inspector slider
-        Player.transform.localPosition = GetValidSpawnPosition(Agent.transform.localPosition, spawnRadius);
+        // JOUW FASES
+        switch (curriculumLevel)
+        {
+            case 0: // Optie 1: 2m afstand (Baby-stap)
+                Agent.transform.localPosition = agentKamerMidden;
+                Player.transform.localPosition = GetValidSpawnPosition(Agent.transform.localPosition, 2f);
+                break;
+
+            case 1: // Optie 2: 4m afstand, agent in midden van sectie
+                Agent.transform.localPosition = agentKamerMidden;
+                Player.transform.localPosition = GetValidSpawnPosition(Agent.transform.localPosition, 4f);
+                break;
+
+            case 2: // Optie 3: Beide willekeurig in DEZELFDE sectie
+                Agent.transform.localPosition = GetValidSpawnPosition(agentKamerMidden, maxRoomRadius);
+                Player.transform.localPosition = GetValidSpawnPosition(agentKamerMidden, maxRoomRadius);
+                break;
+
+            case 3: // Optie 4: Agent in het midden van de map (gang), speler in willekeurige sectie
+                // LET OP: Pas deze Vector3(0, 1, 0) aan als het midden van jouw map ergens anders ligt!
+                Agent.transform.localPosition = new Vector3(0, 1, 0);
+                Player.transform.localPosition = GetValidSpawnPosition(playerKamerMidden, maxRoomRadius);
+                break;
+
+            case 4: // Optie 5: Full Prop Hunt (Agent in kamer A, Speler in kamer B)
+                Agent.transform.localPosition = GetValidSpawnPosition(agentKamerMidden, maxRoomRadius);
+                Player.transform.localPosition = GetValidSpawnPosition(playerKamerMidden, maxRoomRadius);
+                break;
+        }
+
+        if (curriculumLevel == 0 || curriculumLevel == 1)
+        {
+            Vector3 lookTarget = new Vector3(
+            Player.transform.position.x,
+            Agent.transform.position.y,
+            Player.transform.position.z
+            );
+            Agent.transform.LookAt(lookTarget);
+        }
+        else
+        {
+            // Agent random draaien na het spawnen, zodat hij altijd om zich heen moet kijken
+            Agent.transform.localRotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+        }
     }
 
-    private Vector3 GetValidSpawnPosition(Vector3 centerPoint, float spawnRadius)
+    private Vector3 GetValidSpawnPosition(Vector3 centerPoint, float radius)
     {
         for (int i = 0; i < maxSpawnAttempts; i++)
         {
-            Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
+            Vector2 randomCircle = Random.insideUnitCircle * radius;
 
-            // 1. Pick a random local coordinate
             float randomX = centerPoint.x + randomCircle.x;
             float randomZ = centerPoint.z + randomCircle.y;
 
-            // 2. CLAMP the coordinates so they cannot escape the physical walls
+            // Klemmen binnen de uiterste buitenmuren van de map
             float buffer = 2f;
             randomX = Mathf.Clamp(randomX, -arenaBoundX + buffer, arenaBoundX - buffer);
             randomZ = Mathf.Clamp(randomZ, -arenaBoundZ + buffer, arenaBoundZ - buffer);
 
             Vector3 potentialLocalPosition = new Vector3(randomX, 1, randomZ);
-
-            // 3. CONVERT local to WORLD coordinate for physics checks
             Vector3 worldPosition = transform.TransformPoint(potentialLocalPosition);
 
-            // 4. CHECK physics
             if (!Physics.CheckSphere(worldPosition, playerRadius))
             {
                 return potentialLocalPosition;

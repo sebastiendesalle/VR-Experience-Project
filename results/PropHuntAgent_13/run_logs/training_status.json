@@ -1,0 +1,32 @@
+{
+    "curriculum_level": {
+        "lesson_num": 1
+    },
+    "PropHuntAgent_13": {
+        "checkpoints": [
+            {
+                "steps": 11840,
+                "file_path": "results\\PropHuntAgent_13\\PropHuntAgent_13\\PropHuntAgent_13-11840.onnx",
+                "reward": -0.3832501173019409,
+                "creation_time": 1779974605.4206722,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_13\\PropHuntAgent_13\\PropHuntAgent_13-11840.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 11840,
+            "file_path": "results\\PropHuntAgent_13\\PropHuntAgent_13.onnx",
+            "reward": -0.3832501173019409,
+            "creation_time": 1779974605.4206722,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_13\\PropHuntAgent_13\\PropHuntAgent_13-11840.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cpu"
+    }
+}

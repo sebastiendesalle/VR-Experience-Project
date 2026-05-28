@@ -118,7 +118,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 80
   m_CollisionDetection: 0
 --- !u!114 &6347341851806028250
 MonoBehaviour:
@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
   m_BehaviorType: 1
-  m_BehaviorName: PropHuntAgent_06
+  m_BehaviorName: PropHuntAgent_10
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -179,7 +179,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
-  m_DetectableTags: []
+  m_DetectableTags:
+  - Player
   m_RaysPerDirection: 10
   m_MaxRayDegrees: 75
   m_SphereCastRadius: 0.5
@@ -237,6 +238,8 @@ MonoBehaviour:
   SectionOffset: 6
   playerRadius: 0.4
   maxSpawnAttempts: 30
+  arenaBoundX: 20
+  arenaBoundZ: 20
 --- !u!114 &7139151393834221135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -256,3 +259,4 @@ MonoBehaviour:
   moveSpeed: 5
   turnSpeed: 150
   attackRange: 2
+  _envManager: {fileID: 0}
