@@ -1,0 +1,47 @@
+{
+    "PropHuntAgent_04": {
+        "checkpoints": [
+            {
+                "steps": 64123,
+                "file_path": "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-64123.onnx",
+                "reward": null,
+                "creation_time": 1779202207.9144437,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-64123.pt"
+                ]
+            },
+            {
+                "steps": 499992,
+                "file_path": "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-499992.onnx",
+                "reward": null,
+                "creation_time": 1779203003.9937012,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-499992.pt"
+                ]
+            },
+            {
+                "steps": 886224,
+                "file_path": "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-886224.onnx",
+                "reward": null,
+                "creation_time": 1779203708.181628,
+                "auxillary_file_paths": [
+                    "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-886224.pt"
+                ]
+            }
+        ],
+        "final_checkpoint": {
+            "steps": 886224,
+            "file_path": "results\\PropHuntAgent_04\\PropHuntAgent_04.onnx",
+            "reward": null,
+            "creation_time": 1779203708.181628,
+            "auxillary_file_paths": [
+                "results\\PropHuntAgent_04\\PropHuntAgent_04\\PropHuntAgent_04-886224.pt"
+            ]
+        }
+    },
+    "metadata": {
+        "stats_format_version": "0.3.0",
+        "mlagents_version": "0.30.0",
+        "torch_version": "1.7.1+cu110"
+    }
+}
