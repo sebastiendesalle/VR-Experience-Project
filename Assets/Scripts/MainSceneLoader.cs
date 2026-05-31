@@ -48,6 +48,7 @@ public class MainSceneLoader : MonoBehaviour
 
         spawnedProp.name = "ActiveProp_" + chosenProp.propName;
         GameManager.Instance.activePropObject = spawnedProp;
+        spawnedProp.tag = "Player";
 
         Debug.Log("Prop spawned: " + spawnedProp.name);
     }

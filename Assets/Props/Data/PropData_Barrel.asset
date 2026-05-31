@@ -16,5 +16,5 @@ MonoBehaviour:
   propPrefab: {fileID: 139238, guid: ea39c929a43fec843a8747fa0f34346e, type: 3}
   colliderSize: {x: 0, y: 0, z: 0}
   colliderCenter: {x: 0, y: 0, z: 0}
-  cameraOffset: {x: 0, y: 0, z: 0}
+  cameraOffset: {x: 0, y: 1, z: 0}
   previewImage: {fileID: 0}
