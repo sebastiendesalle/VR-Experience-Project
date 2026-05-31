@@ -4144,10 +4144,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Agent
       objectReference: {fileID: 0}
-    - target: {fileID: 4073895564691015407, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
-      propertyPath: Player
-      value: 
-      objectReference: {fileID: 7758168424954712422}
     - target: {fileID: 5071489475550340759, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: m_LocalPosition.x
       value: -19.08
@@ -4204,12 +4200,7 @@ PrefabInstance:
       propertyPath: moveSpeed
       value: 10
       objectReference: {fileID: 0}
-    - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
-      propertyPath: _envManager
-      value: 
-      objectReference: {fileID: 6211321778611422678}
-    m_RemovedComponents:
-    - {fileID: 4073895564691015407, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
