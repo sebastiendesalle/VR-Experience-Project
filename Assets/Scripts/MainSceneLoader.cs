@@ -43,8 +43,8 @@ public class MainSceneLoader : MonoBehaviour
 
         // Spawn the prop at player position
         Vector3 spawnPos = playerTransform.position + propSpawnOffset;
-        spawnedProp = Instantiate(chosenProp.propPrefab, spawnPos,
-                                  playerTransform.rotation);
+        spawnedProp = Instantiate(chosenProp.propPrefab, spawnPos, Quaternion.identity);
+        StripPhysicsFromProp(spawnedProp);
 
         spawnedProp.name = "ActiveProp_" + chosenProp.propName;
         GameManager.Instance.activePropObject = spawnedProp;
@@ -52,13 +52,22 @@ public class MainSceneLoader : MonoBehaviour
         Debug.Log("Prop spawned: " + spawnedProp.name);
     }
 
-    void Update()
+    private void StripPhysicsFromProp(GameObject prop)
     {
-        // Prop follows player every frame
-        if (spawnedProp != null && playerTransform != null)
+        Rigidbody rb = prop.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            spawnedProp.transform.position =
-                playerTransform.position + propSpawnOffset;
+            rb.isKinematic = true;
+            rb.useGravity = false;
         }
+
+        foreach (Collider col in prop.GetComponentsInChildren<Collider>())
+            col.enabled = false;
+    }
+
+    void LateUpdate()
+    {
+        if (spawnedProp != null)
+            spawnedProp.transform.position = playerTransform.position + propSpawnOffset;
     }
 }
