@@ -16,6 +16,8 @@ public class HideAndSeekManager : MonoBehaviour
 
     [Header("AI")]
     public DecisionRequester aiBrain;
+    public GameObject aiAgentObject;
+    public Vector3 aiSpawnPosition = new Vector3(0, 1f, 0);
 
     // Private
     private float currentTime;
@@ -58,6 +60,13 @@ public class HideAndSeekManager : MonoBehaviour
         if (aiBrain != null)
             aiBrain.enabled = false;
 
+        if (aiAgentObject != null)
+        {
+            // Teleporteer ver onder de map
+            aiAgentObject.transform.position = new Vector3(0, -100f, 0);
+            SetAgentVisuals(false); // Zet onzichtbaar en collision uit
+        }
+
         if (phaseText != null)
         {
             phaseText.text = "HIDE!";
@@ -73,6 +82,21 @@ public class HideAndSeekManager : MonoBehaviour
     {
         isHidingPhase = false;
         currentTime = seekingTime;
+
+        if (aiAgentObject != null)
+        {
+            aiAgentObject.transform.position = aiSpawnPosition;
+            aiAgentObject.transform.rotation = Quaternion.Euler(0, Random.Range(0f, 360f), 0);
+            Rigidbody rb = aiAgentObject.GetComponent<Rigidbody>();
+
+            if (rb != null)
+            {
+                rb.linearVelocity = Vector3.zero;
+                rb.angularVelocity = Vector3.zero;
+            }
+
+            SetAgentVisuals(true);
+        }
 
         if (aiBrain != null)
             aiBrain.enabled = true;
@@ -91,6 +115,17 @@ public class HideAndSeekManager : MonoBehaviour
         }
 
         Debug.Log("Seeking phase started - AI activated");
+    }
+
+    private void SetAgentVisuals(bool isVisible)
+    {
+        if (aiAgentObject == null) return;
+
+        MeshRenderer[] renderers = aiAgentObject.GetComponentsInChildren<MeshRenderer>();
+        foreach (var r in renderers) r.enabled = isVisible;
+
+        Collider col = aiAgentObject.GetComponent<Collider>();
+        if (col != null) col.enabled = isVisible;
     }
 
     //  END STATES
@@ -173,7 +208,7 @@ public class HideAndSeekManager : MonoBehaviour
             }
         }
     }
-   
+
     //  EDITOR TESTING
 
 #if UNITY_EDITOR

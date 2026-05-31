@@ -43,6 +43,7 @@ public class PlayerPropTransformer : MonoBehaviour
         GameManager.Instance.chosenProp = propData;
         GameManager.Instance.isTransformed = true;
         GameManager.Instance.activePropObject = spawnedProp;
+        spawnedProp.tag = "Player";
 
         Debug.Log("Transformed into: " + propData.propName);
     }

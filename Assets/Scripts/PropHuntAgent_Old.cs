@@ -4,7 +4,7 @@ using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
 using System.Collections.Generic;
 
-public class PropHuntAgent : Agent
+public class PropHuntAgent_Old : Agent
 {
     public float moveSpeed = 5f;
     public float turnSpeed = 150f;

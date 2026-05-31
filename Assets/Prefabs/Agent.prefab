@@ -16,7 +16,6 @@ GameObject:
   - component: {fileID: 3995968681410453485}
   - component: {fileID: 938281557233856081}
   - component: {fileID: 8474662368905970927}
-  - component: {fileID: 4073895564691015407}
   - component: {fileID: 7139151393834221135}
   m_Layer: 2
   m_Name: Agent
@@ -144,8 +143,8 @@ MonoBehaviour:
     hasUpgradedBrainParametersWithActionSpec: 1
   m_Model: {fileID: 0}
   m_InferenceDevice: 0
-  m_BehaviorType: 1
-  m_BehaviorName: PropHuntAgent_10
+  m_BehaviorType: 0
+  m_BehaviorName: PropHuntAgent_21
   TeamId: 0
   m_UseChildSensors: 1
   m_UseChildActuators: 1
@@ -180,15 +179,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SensorName: RayPerceptionSensor
   m_DetectableTags:
+  - Prop
   - Player
-  m_RaysPerDirection: 10
-  m_MaxRayDegrees: 75
+  - Wall
+  m_RaysPerDirection: 15
+  m_MaxRayDegrees: 90
   m_SphereCastRadius: 0.5
-  m_RayLength: 26
+  m_RayLength: 40
   m_RayLayerMask:
     serializedVersion: 2
     m_Bits: 4294967291
-  m_ObservationStacks: 1
+  m_ObservationStacks: 2
   m_AlternatingRayOrder: 1
   m_UseBatchedRaycasts: 0
   rayHitColor: {r: 1, g: 0, b: 0, a: 1}
@@ -216,30 +217,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 2, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &4073895564691015407
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3475433271164733015}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bd4fd36078f2a1740ac79cdaeba4b6c3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Player: {fileID: 0}
-  Agent: {fileID: 3475433271164733015}
-  SectionMiddleCoordinates:
-  - {x: -13, y: 1, z: -13}
-  - {x: 13, y: 1, z: -13}
-  - {x: 13, y: 1, z: 13}
-  - {x: -13, y: 1, z: 13}
-  SectionOffset: 6
-  playerRadius: 0.4
-  maxSpawnAttempts: 30
-  arenaBoundX: 20
-  arenaBoundZ: 20
 --- !u!114 &7139151393834221135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,8 +232,9 @@ MonoBehaviour:
   agentParameters:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
-  MaxStep: 0
-  moveSpeed: 5
+  MaxStep: 5000
+  moveSpeed: 10
   turnSpeed: 150
-  attackRange: 2
-  _envManager: {fileID: 0}
+  gameManager: {fileID: 0}
+  SectionMiddleCoordinates: []
+  SectionOffset: 0
