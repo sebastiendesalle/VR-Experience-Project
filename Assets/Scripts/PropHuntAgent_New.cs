@@ -10,6 +10,8 @@ public class PropHuntAgent_New : Agent
     public float turnSpeed = 150f;
     private Rigidbody _rb;
 
+    private Animator _animator;
+
     [Header("Game Connecties")]
     public HideAndSeekManager gameManager;
 
@@ -30,6 +32,7 @@ public class PropHuntAgent_New : Agent
         {
             _rb.freezeRotation = true;
         }
+        _animator = GetComponentInChildren<Animator>();
     }
 
     public override void OnEpisodeBegin()
@@ -64,6 +67,7 @@ public class PropHuntAgent_New : Agent
         if (gameManager == null || !gameManager.aiBrain.enabled)
         {
             if (_rb != null) _rb.linearVelocity = Vector3.zero;
+            if (_animator != null) _animator.SetFloat("Snelheid", 0f);
             return;
         }
 
@@ -77,6 +81,11 @@ public class PropHuntAgent_New : Agent
             Vector3 moveVelocity = transform.forward * moveInput * moveSpeed;
             moveVelocity.y = _rb.linearVelocity.y;
             _rb.linearVelocity = moveVelocity;
+        }
+
+        if (_animator != null)
+        {
+            _animator.SetFloat("Snelheid", moveInput);
         }
 
         CheckForNewSection();
@@ -114,4 +123,5 @@ public class PropHuntAgent_New : Agent
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
     }
+
 }
