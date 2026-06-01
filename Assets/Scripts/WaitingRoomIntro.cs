@@ -13,6 +13,10 @@ public class WaitingRoomIntro : MonoBehaviour
     [Header("Het Menu")]
     public GameObject startMenuCanvas;
 
+    [Header("Props")]
+    public GameObject props;
+
+
     void Start()
     {
         if (vrMovementComponent != null) vrMovementComponent.enabled = false;
@@ -20,6 +24,8 @@ public class WaitingRoomIntro : MonoBehaviour
         if (mainLight != null) mainLight.intensity = darkIntensity;
 
         if (startMenuCanvas != null) startMenuCanvas.SetActive(true);
+
+        props.SetActive(false);
     }
 
     public void StartGameButtonClicked()
@@ -29,6 +35,9 @@ public class WaitingRoomIntro : MonoBehaviour
         if (mainLight != null) mainLight.intensity = normalIntensity;
 
         if (startMenuCanvas != null) startMenuCanvas.SetActive(false);
+
+        props.SetActive(true);
+
 
         Debug.Log("Waiting room is ontgrendeld. Speler kan nu bewegen!");
     }
