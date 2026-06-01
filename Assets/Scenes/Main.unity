@@ -11270,7 +11270,7 @@ MonoBehaviour:
   aiBrain: {fileID: 1961418980}
   aiAgentObject: {fileID: 1961418981}
   aiSpawnPosition: {x: 0, y: 1, z: 0}
-  vrMovementComponent: {fileID: 1967881137}
+  vrMovementComponent: {fileID: 1830927200}
 --- !u!1 &1475903124
 GameObject:
   m_ObjectHideFlags: 0
@@ -14066,6 +14066,17 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.5832948, y: 0.46582016, z: 0.38913614}
   m_Center: {x: 0.00000023841858, y: 0.23291008, z: -0.000000037252903}
+--- !u!114 &1830927200 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5445929964886177515, guid: 1793f4c0b1d1b4c43a8b0977b1e693a9, type: 3}
+  m_PrefabInstance: {fileID: 1986802032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b1e8c997df241c1a67045eeac79b41b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1864522781
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -15018,7 +15029,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: moveSpeed
-      value: 10
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
+      propertyPath: turnSpeed
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: gameManager
@@ -15034,7 +15049,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[0].x
-      value: 13
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[0].y
@@ -15042,7 +15057,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[0].z
-      value: 13
+      value: -13
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[1].x
@@ -15058,7 +15073,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[2].x
-      value: -13
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[2].y
@@ -15078,7 +15093,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7139151393834221135, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: SectionMiddleCoordinates.Array.data[3].z
-      value: -13
+      value: 13
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15106,17 +15121,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3475433271164733015, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
   m_PrefabInstance: {fileID: 1961418978}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1967881137 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3302350370202456551, guid: 1793f4c0b1d1b4c43a8b0977b1e693a9, type: 3}
-  m_PrefabInstance: {fileID: 1986802032}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6fa7b4195685c3846be746c74f0ab2f8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &1972109111
 PrefabInstance:
   m_ObjectHideFlags: 0
