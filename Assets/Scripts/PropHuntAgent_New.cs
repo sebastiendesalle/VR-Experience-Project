@@ -100,6 +100,11 @@ public class PropHuntAgent_New : Agent
             if (hitCollider.CompareTag("Player"))
             {
                 gameManager.PlayerFound();
+                if (_animator != null)
+                {
+                    _animator.SetTrigger("Dansen");
+                    Debug.Log("AI heeft je gepakt en begint te feesten!");
+                }
                 return;
             }
         }
