@@ -67,7 +67,7 @@ public class HideAndSeekManager : MonoBehaviour
         {
             // Teleporteer ver onder de map
             aiAgentObject.transform.position = new Vector3(0, -100f, 0);
-            SetAgentVisuals(false); // Zet onzichtbaar en collision uit
+            aiAgentObject.SetActive(false); // Zet onzichtbaar en collision uit
         }
 
         if (vrMovementComponent != null)
@@ -120,7 +120,7 @@ public class HideAndSeekManager : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
             }
 
-            SetAgentVisuals(true);
+            aiAgentObject.SetActive(true);
         }
 
         if (aiBrain != null)
@@ -140,17 +140,6 @@ public class HideAndSeekManager : MonoBehaviour
         }
 
         Debug.Log("Seeking phase started - AI activated");
-    }
-
-    private void SetAgentVisuals(bool isVisible)
-    {
-        if (aiAgentObject == null) return;
-
-        MeshRenderer[] renderers = aiAgentObject.GetComponentsInChildren<MeshRenderer>();
-        foreach (var r in renderers) r.enabled = isVisible;
-
-        Collider col = aiAgentObject.GetComponent<Collider>();
-        if (col != null) col.enabled = isVisible;
     }
 
     //  END STATES
