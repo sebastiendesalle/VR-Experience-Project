@@ -70,7 +70,7 @@ public class PropHuntAgent_New : Agent
         float turnInput = actionBuffers.ContinuousActions[0];
         float moveInput = Mathf.Clamp(actionBuffers.ContinuousActions[1], 0f, 1f);
 
-        transform.Rotate(Vector3.up * turnInput * turnSpeed * Time.deltaTime);
+        transform.Rotate(Vector3.up * turnInput * turnSpeed * Time.fixedDeltaTime);
 
         if (_rb != null)
         {

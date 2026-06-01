@@ -19,6 +19,9 @@ public class HideAndSeekManager : MonoBehaviour
     public GameObject aiAgentObject;
     public Vector3 aiSpawnPosition = new Vector3(0, 1f, 0);
 
+    [Header("VR Control (Lock Mechanisme)")]
+    public Behaviour vrMovementComponent;
+
     // Private
     private float currentTime;
     private bool isHidingPhase = true;
@@ -67,6 +70,11 @@ public class HideAndSeekManager : MonoBehaviour
             SetAgentVisuals(false); // Zet onzichtbaar en collision uit
         }
 
+        if (vrMovementComponent != null)
+        {
+            vrMovementComponent.enabled = true;
+        }
+
         if (phaseText != null)
         {
             phaseText.text = "HIDE!";
@@ -82,6 +90,23 @@ public class HideAndSeekManager : MonoBehaviour
     {
         isHidingPhase = false;
         currentTime = seekingTime;
+
+        if (vrMovementComponent != null)
+        {
+            vrMovementComponent.enabled = false; // Zet het lopen via de joystick uit
+            Debug.Log("VR Movement Locked! Je kunt alleen nog rondkijken.");
+        }
+
+        // --- ZET ALLE COLLIDERS VAN DE PROP AAN ---
+        if (GameManager.Instance != null && GameManager.Instance.activePropObject != null)
+        {
+            Collider[] propColliders = GameManager.Instance.activePropObject.GetComponentsInChildren<Collider>(true);
+            foreach (Collider col in propColliders)
+            {
+                col.enabled = true;
+            }
+            Debug.Log("Alle colliders op de gekozen prop staan AAN.");
+        }
 
         if (aiAgentObject != null)
         {

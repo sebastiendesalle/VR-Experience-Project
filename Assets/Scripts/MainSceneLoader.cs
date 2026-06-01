@@ -62,8 +62,21 @@ public class MainSceneLoader : MonoBehaviour
             rb.useGravity = false;
         }
 
+        int propLayerIndex = LayerMask.NameToLayer("Ignore Raycast");
+
+        if (propLayerIndex == -1)
+        {
+            Debug.LogError("Let op! Je hebt de layer 'ignore Raycast' nog niet aangemaakt in Unity!");
+        }
+
+        prop.layer = propLayerIndex;
+
         foreach (Collider col in prop.GetComponentsInChildren<Collider>())
-            col.enabled = false;
+        {
+            col.enabled = true;
+            col.isTrigger = false;
+            col.gameObject.layer = propLayerIndex;
+        }
     }
 
     void LateUpdate()

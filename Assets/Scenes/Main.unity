@@ -11270,6 +11270,7 @@ MonoBehaviour:
   aiBrain: {fileID: 1961418980}
   aiAgentObject: {fileID: 1961418981}
   aiSpawnPosition: {x: 0, y: 1, z: 0}
+  vrMovementComponent: {fileID: 1967881137}
 --- !u!1 &1475903124
 GameObject:
   m_ObjectHideFlags: 0
@@ -11604,7 +11605,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6598815579406187037, guid: 18ddb545287c546e19cc77dc9fbb2189, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -14959,6 +14960,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1986802033}
     m_Modifications:
+    - target: {fileID: 938281557233856081, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
+      propertyPath: m_RayLayerMask.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 3475433271164733015, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
       propertyPath: m_Name
       value: Agent
@@ -15101,6 +15106,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3475433271164733015, guid: 49297f62ae626b24eadd1c68a1a5e248, type: 3}
   m_PrefabInstance: {fileID: 1961418978}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1967881137 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3302350370202456551, guid: 1793f4c0b1d1b4c43a8b0977b1e693a9, type: 3}
+  m_PrefabInstance: {fileID: 1986802032}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6fa7b4195685c3846be746c74f0ab2f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1972109111
 PrefabInstance:
   m_ObjectHideFlags: 0
