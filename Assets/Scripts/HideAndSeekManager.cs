@@ -1,6 +1,7 @@
-using UnityEngine;
 using TMPro;
 using Unity.MLAgents;
+using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HideAndSeekManager : MonoBehaviour
 {
@@ -21,6 +22,11 @@ public class HideAndSeekManager : MonoBehaviour
 
     [Header("VR Control (Lock Mechanisme)")]
     public Behaviour vrMovementComponent;
+
+    [Header("Game Over UI")]
+    public GameObject gameOverCanvas;
+    public Transform vrCamera;
+    public TextMeshProUGUI gameOverTitel;
 
     // Private
     private float currentTime;
@@ -93,11 +99,10 @@ public class HideAndSeekManager : MonoBehaviour
 
         if (vrMovementComponent != null)
         {
-            vrMovementComponent.enabled = false; // Zet het lopen via de joystick uit
+            vrMovementComponent.enabled = false;
             Debug.Log("VR Movement Locked! Je kunt alleen nog rondkijken.");
         }
 
-        // --- ZET ALLE COLLIDERS VAN DE PROP AAN ---
         if (GameManager.Instance != null && GameManager.Instance.activePropObject != null)
         {
             Collider[] propColliders = GameManager.Instance.activePropObject.GetComponentsInChildren<Collider>(true);
@@ -146,12 +151,32 @@ public class HideAndSeekManager : MonoBehaviour
 
     public void PlayerFound()
     {
-        // Called by the AI script when it reaches the player
         if (gameOver) return;
         gameOver = true;
 
         if (aiBrain != null)
             aiBrain.enabled = false;
+
+        if (gameOverCanvas != null && vrCamera != null)
+        {
+            Vector3 platteKijkRichting = vrCamera.forward;
+            platteKijkRichting.y = 0;
+
+            Vector3 spawnPosition = vrCamera.position + (platteKijkRichting * 1.0f);
+
+            spawnPosition.y = vrCamera.position.y - 0.1f;
+
+            gameOverCanvas.transform.position = spawnPosition;
+            gameOverCanvas.transform.rotation = Quaternion.LookRotation(platteKijkRichting);
+
+            if (gameOverTitel != null)
+            {
+                gameOverTitel.text = "YOU WERE FOUND!";
+                gameOverTitel.color = Color.red;
+            }
+
+            gameOverCanvas.SetActive(true);
+        }
 
         if (phaseText != null)
         {
@@ -178,6 +203,27 @@ public class HideAndSeekManager : MonoBehaviour
 
         if (aiBrain != null)
             aiBrain.enabled = false;
+
+        if (gameOverCanvas != null && vrCamera != null)
+        {
+            Vector3 platteKijkRichting = vrCamera.forward;
+            platteKijkRichting.y = 0;
+
+            Vector3 spawnPosition = vrCamera.position + (platteKijkRichting * 1.0f);
+
+            spawnPosition.y = vrCamera.position.y - 0.1f;
+
+            gameOverCanvas.transform.position = spawnPosition;
+            gameOverCanvas.transform.rotation = Quaternion.LookRotation(platteKijkRichting);
+
+            if (gameOverTitel != null)
+            {
+                gameOverTitel.text = "YOU SURVIVED!";
+                gameOverTitel.color = Color.green;
+            }
+
+            gameOverCanvas.SetActive(true);
+        }
 
         if (phaseText != null)
         {
@@ -221,6 +267,13 @@ public class HideAndSeekManager : MonoBehaviour
                     txt.color = flashColor;
             }
         }
+    }
+
+    public void RestartToWaitingRoom()
+    {
+        Debug.Log("Game wordt gereset!");
+
+        SceneManager.LoadScene("WaitingRoom");
     }
 
     //  EDITOR TESTING

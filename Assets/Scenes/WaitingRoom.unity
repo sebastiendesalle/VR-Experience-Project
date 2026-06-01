@@ -2411,7 +2411,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1614764224}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.638}
+  m_LocalPosition: {x: 0, y: 0, z: 0.017}
   m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3248,7 +3248,7 @@ MonoBehaviour:
   darkIntensity: 0.1
   normalIntensity: 1
   startMenuCanvas: {fileID: 1614764224}
-  props: {fileID: 0}
+  props: {fileID: 2018445113}
 --- !u!4 &1932109281
 Transform:
   m_ObjectHideFlags: 0
