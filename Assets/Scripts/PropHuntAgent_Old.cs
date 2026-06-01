@@ -99,7 +99,7 @@ public class PropHuntAgent_Old : Agent
         {
             if (hitCollider.CompareTag("Player"))
             {
-                AddReward(5.0f); // Grote hoofdwaarde voor het daadwerkelijk behalen van het doel
+                AddReward(1.0f); // Grote hoofdwaarde voor het daadwerkelijk behalen van het doel
                 EndEpisode();
                 return;
             }
@@ -147,7 +147,5 @@ public class PropHuntAgent_Old : Agent
         continuousActionsOut[0] = Input.GetAxis("Horizontal");
         continuousActionsOut[1] = Input.GetAxis("Vertical");
 
-        var discreteActionsOut = actionsOut.DiscreteActions;
-        discreteActionsOut[0] = Input.GetKey(KeyCode.E) ? 1 : 0;
     }
 }

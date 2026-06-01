@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class HideAndSeekManager : MonoBehaviour
 {
     [Header("Game Settings")]
-    public float hidingTime = 30f;
+    public float hidingTime = 60f;
     public float seekingTime = 60f;
 
     [Header("Timer UI - drag all your world timers here")]
